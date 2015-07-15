@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,13 @@ public class Logger
 	private Class loggingClass;
 	private static boolean debug = true;
 	private static boolean warn = true;
-	private static String LOGFILE_LOC = "/home/jmtappe/bocolyer.log";
 
+	public static final String FS = System.getProperty("file.separator");
+	private static final String PROPERTY_FILE_LOC = ".." + FS + "context.properties"; //This should be in the WEB-INF folder
+	private static final String PROPERTY_LOG_LOCATION = "log.file.location";
+
+
+	private File logFile ;
 	public static Logger thisLogger = new Logger(Logger.class);
 
 	private static String getDateNow()
@@ -49,7 +55,10 @@ public class Logger
 	@SuppressWarnings("rawtypes")
 	public Logger(Class clazz)
 	{
+
 		this.loggingClass = clazz;
+		Properties props = FileHelper.getDatabaseProperties(PROPERTY_FILE_LOC);
+		logFile = new File(props.getProperty(PROPERTY_LOG_LOCATION));
 	}
 
 	private void log(Object x, String method)
@@ -60,9 +69,7 @@ public class Logger
 
 	private void log(String msg)
 	{
-		
-	
-		File logFile = new File(LOGFILE_LOC);
+
 		FileWriter fw = null;
 		try
 		{

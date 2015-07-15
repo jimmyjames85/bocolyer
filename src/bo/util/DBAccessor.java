@@ -1,8 +1,5 @@
 package bo.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,10 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.*;
-
-import bo.users.User;
-import bo.users.UserManager;
-import org.apache.commons.io.IOUtils;
 
 public class DBAccessor
 {
