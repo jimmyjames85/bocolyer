@@ -1,0 +1,44 @@
+
+CREATE TABLE users 
+(
+ firstName varchar (255),
+ lastName varchar (255), 
+ email varchar (255),
+ username  varchar (255) UNIQUE NOT NULL,
+ password varchar (255) NOT NULL,
+ permissions TEXT,
+ PRIMARY KEY (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE sessions 
+(
+ username varchar (255) UNIQUE NOT NULL,
+ sessionId varchar(128) UNIQUE NOT NULL,
+ PRIMARY KEY (sessionId),
+ FOREIGN KEY (username) REFERENCES users(username) 
+) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE content
+(
+ 	id varchar(255) UNIQUE NOT NULL,
+ 	content TEXT,
+ 	PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+//not being used yet
+CREATE TABLE chat_messages
+(
+ id BIGINT NOT NULL AUTO_INCREMENT UNIQUE,
+ username VARCHAR (255) NOT NULL,
+ chatRoom TEXT NOT NULL,
+ time BIGINT NOT NULL,
+ message TEXT NOT NULL,
+ PRIMARY KEY (id),
+ UNIQUE (username, time),
+ FOREIGN KEY (username) REFERENCES users(username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+mysql -h mysql.cs.iastate.edu -u u309R16 -p db309R16 
