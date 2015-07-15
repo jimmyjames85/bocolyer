@@ -6,7 +6,7 @@
 <div id="headerContainer">
     <div id="headerRow">
         <div id="headerHomePlay">
-            <a href="home.jsp">Home</a>
+            <a href="modifyContent.jsp">Content Editor</a>
         </div>
         <div>
             <a id="headerCreateGame" href="about.jsp">About</a>
@@ -43,7 +43,7 @@
     function headerLogout() {
         //this calls the userLogout in session.js
         userLogout(function (msg) {
-            window.location = getBaseURL() + "/pages/home.jsp";
+            window.location = getBaseURL();
         });
     }
 </script>

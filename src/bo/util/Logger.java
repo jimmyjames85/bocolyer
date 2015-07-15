@@ -69,10 +69,12 @@ public class Logger
 
 	private void log(String msg)
 	{
-
 		FileWriter fw = null;
 		try
 		{
+			if(!logFile.exists())
+				logFile.createNewFile();
+
 			fw = new FileWriter(logFile, true);
 
 			byte bytes[] = msg.getBytes();
@@ -84,7 +86,6 @@ public class Logger
 		}
 		catch (Exception e)
 		{
-
 		}
 		finally
 		{

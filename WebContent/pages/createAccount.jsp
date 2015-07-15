@@ -45,8 +45,8 @@
 						var user = JSON.parse(u);
 						//set sessionId
 						setCookie("s", user.sessionId, 1, "/");
-						//LOGIN redirect to Homepage
-						window.location = "home.jsp";//todo
+						//LOGIN redirect to ContentManager
+						window.location = "modifyContent.jsp";
 					});
 
 				}

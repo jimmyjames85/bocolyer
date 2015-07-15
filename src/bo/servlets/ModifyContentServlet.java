@@ -19,6 +19,7 @@ import bo.users.User;
 import bo.users.UserManager;
 import bo.users.session.SessionId;
 
+import bo.util.Logger;
 import com.google.gson.stream.JsonWriter;
 
 public class ModifyContentServlet extends HttpServlet
@@ -36,6 +37,8 @@ public class ModifyContentServlet extends HttpServlet
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOG = new Logger(ModifyContentServlet.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -55,7 +58,6 @@ public class ModifyContentServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-
 		SessionId sessionId = null;
 		String contentId = null;
 		String contentValue = null;
@@ -70,8 +72,6 @@ public class ModifyContentServlet extends HttpServlet
 		{
 			String curParm = itr.next();
 			String curVal = parmMap.get(curParm)[0];
-
-			System.out.println(curParm + "=" + curVal);
 
 			if (curParm.equals(CONTENT_ID))
 				contentId = curVal;
@@ -126,6 +126,7 @@ public class ModifyContentServlet extends HttpServlet
 			jOut = out.toString();
 		}
 		os.print(jOut);
+		response.sendRedirect("pages/modifyContent.jsp");
 	}
 
 	private String updateContent(String contentId, String contentValue) throws IOException
