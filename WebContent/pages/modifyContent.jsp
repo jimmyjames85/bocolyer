@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="bo" uri="http://bocolyer.homenet.org" %>
 
 <%@ page import="bo.ContentManager" %>
 <%@ page import="bo.users.UserManager" %>
@@ -14,8 +15,8 @@
     <%@ include file="header.jsp" %>
 </div>
 
-<c:if test="<%=ContentManager.validateContentUser(request)%>">
-
+<c:choose>
+    <c:when test="${bo:validateUser(cookie.get('s').value)}">
 
     <div id="controls">
         <pre><%--= ContentManager.getContentIds() --%></pre>
@@ -32,8 +33,13 @@
                     type="submit">
         </form>
     </div>
-
-</c:if>
+    </c:when>
+    <c:otherwise>
+    <div>
+        You are not a content manager.
+    </div>
+    </c:otherwise>
+</c:choose>
 
 
 </body>

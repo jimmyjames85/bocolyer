@@ -55,11 +55,22 @@ class ContentManager
 		return map;
 	}
 
-	public static boolean validateContentUser(HttpServletRequest request)
+	public static boolean validateContentUser(String sessionId)
 	{
-		def cookieMap = cookieArrayToMap(request.getCookies())
-		def permissions = UserManager.getUser(new SessionId(cookieMap?.s?.toString()))?.getPermissions()?.split(";")?.toList()
-		return permissions.contains(CONTENT_MANAGER)
+		//def cookieMap = cookieArrayToMap(request.getCookies())
+		//def permissions = UserManager.getUser(new SessionId(cookieMap?.s?.toString()))?.getPermissions()?.split(";")?.toList()
+		try
+		{
+			println sessionId
+			def permissions = UserManager.getUser(new SessionId(sessionId))?.getPermissions()?.split(";")?.toList()
+			return permissions?.contains(CONTENT_MANAGER)
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 	public static List getContentIds()
@@ -89,6 +100,11 @@ class ContentManager
 		if (results != null)
 			ret = results.get(0).get(CONTENT_VALUE).toString();
 		return ret;
+	}
+
+	public static void main(String[] args)
+	{
+		println "hi"
 	}
 
 }
