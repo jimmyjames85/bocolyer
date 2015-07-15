@@ -5,5 +5,6 @@ deploy
 out
 WebContent/WEB-INF/classes
 WebContent/WEB-INF/database.properties
-
+web
 WebContent/WEB-INF/context.properties
+.idea
