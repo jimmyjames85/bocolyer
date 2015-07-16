@@ -27,7 +27,7 @@ CREATE TABLE content
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-//not being used yet
+#not being used yet
 CREATE TABLE chat_messages
 (
  id BIGINT NOT NULL AUTO_INCREMENT UNIQUE,

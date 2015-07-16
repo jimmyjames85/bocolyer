@@ -46,7 +46,7 @@
 						//set sessionId
 						setCookie("s", user.sessionId, 1, "/");
 						//LOGIN redirect to ContentManager
-						window.location = "modifyContent.jsp";
+						window.location = "contentEditor.jsp";
 					});
 
 				}

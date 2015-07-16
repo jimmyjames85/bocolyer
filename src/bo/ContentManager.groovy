@@ -4,6 +4,9 @@ import bo.users.User
 import bo.users.UserManager
 import bo.users.session.SessionId
 import bo.util.DBAccessor
+import bo.util.Logger
+import groovy.xml.MarkupBuilder
+import groovy.xml.StreamingMarkupBuilder
 
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
@@ -17,7 +20,7 @@ class ContentManager
 	private static final String CONTENT_TABLE = "content";
 	private static final String CONTENT_ID = "id";
 	private static final String CONTENT_VALUE = "content";
-
+	private static final Logger LOG = new Logger(ContentManager.class)
 
 	protected static String[] buildUpdateContentQuery(String contentId, String contentValue)
 	{
@@ -65,11 +68,31 @@ class ContentManager
 			def permissions = UserManager.getUser(new SessionId(sessionId))?.getPermissions()?.split(";")?.toList()
 			return permissions?.contains(CONTENT_MANAGER)
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		return false;
+
+	}
+
+	public static String getLogAsHTMLTable()
+	{
+		File logFile = LOG.getLogFile()
+
+
+
+		def writer = new StringWriter()
+		def html = new MarkupBuilder(writer)
+		html.table {
+			logFile.eachLine { line ->
+				tr {
+					td("$line")
+				}
+			}
+		}
+
+		return writer.toString()
 
 	}
 

@@ -16,8 +16,9 @@ public class Logger
 {
 	@SuppressWarnings("rawtypes")
 	private Class loggingClass;
-	private static boolean debug = true;
-	private static boolean warn = true;
+	private static boolean debug = false;
+	private static boolean warn = false;
+	private static boolean info = true;
 
 	public static final String FS = System.getProperty("file.separator");
 	private static final String PROPERTY_FILE_LOC = ".." + FS + "context.properties"; //This should be in the WEB-INF folder
@@ -33,6 +34,11 @@ public class Logger
 		df.setTimeZone(TimeZone.getDefault());
 		return df.format(new Date());
 
+	}
+
+	public File getLogFile()
+	{
+		return logFile;
 	}
 
 	public static void pageVisit(HttpServletRequest request)

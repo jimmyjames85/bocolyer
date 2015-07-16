@@ -32,9 +32,12 @@ public class ModifyContentServlet extends HttpServlet
 	public static final String SESSIONID = "sid";
 	public static final String CONTENT_ID = "contentId";
 	public static final String CONTENT_VALUE = "contentValue";
+	public static final String FUNDS_RAISED = "fundsRaised";
+	public static final String FUNDS_TARGET = "fundsTarget";
+
 	public static final String PRIVILEGE_CONTENT_MANAGER = "CONTENT_MANAGER";
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -62,6 +65,8 @@ public class ModifyContentServlet extends HttpServlet
 		String contentId = null;
 		String contentValue = null;
 		String action = null;
+		String fundsRaised = null;
+		String fundsTarget = null;
 
 		Map<String, String> cookieMap = cookieArrayToMap(request.getCookies());
 		ServletOutputStream os = response.getOutputStream();
@@ -79,6 +84,12 @@ public class ModifyContentServlet extends HttpServlet
 				contentValue = curVal;
 			else if (curParm.equals(ACTION))
 				action = curVal;
+			else if (curParm.equals(FUNDS_RAISED))
+				fundsRaised = curVal;
+			else if (curParm.equals(FUNDS_TARGET))
+				fundsTarget = curVal;
+
+			System.out.println(curParm + " :" + curVal);
 		}
 
 		String jOut = null;
@@ -86,12 +97,14 @@ public class ModifyContentServlet extends HttpServlet
 		try
 		{
 
+
 			sessionId = new SessionId(cookieMap.get(COOKIE_SESSION_ID));
 			User requestingUser = UserManager.getUser(sessionId);
 
-			if (requestingUser==null || requestingUser.getPermissions()==null ||requestingUser.getPermissions().indexOf(PRIVILEGE_CONTENT_MANAGER) < 0)
+			if (requestingUser == null || requestingUser.getPermissions() == null || requestingUser.getPermissions().indexOf(PRIVILEGE_CONTENT_MANAGER) < 0)
 				throw new Exception("Unprivileged account");
 
+			updateFunds(fundsRaised, fundsTarget);
 			if (ACTION_UPDATE.equals(action))
 				jOut = updateContent(contentId, contentValue);
 			else if (ACTION_RETRIEVE.equals(action))
@@ -126,7 +139,21 @@ public class ModifyContentServlet extends HttpServlet
 			jOut = out.toString();
 		}
 		os.print(jOut);
-		response.sendRedirect("pages/modifyContent.jsp");
+		response.sendRedirect("pages/contentEditor.jsp");
+	}
+
+	private void updateFunds(String fundsRaised, String fundsTarget)
+	{
+		try
+		{
+			int total = Integer.parseInt(fundsRaised);
+			int target = Integer.parseInt(fundsTarget);
+			updateContent("funds.raised","" + total);
+			updateContent("funds.target","" + target);
+		}
+		catch (Exception e)
+		{
+		}
 	}
 
 	private String updateContent(String contentId, String contentValue) throws IOException

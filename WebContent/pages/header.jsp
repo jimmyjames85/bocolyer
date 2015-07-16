@@ -5,11 +5,11 @@
 
 <div id="headerContainer">
     <div id="headerRow">
-        <div id="headerHomePlay">
-            <a href="modifyContent.jsp">Content Editor</a>
+        <div id="headerHomeContentManager">
+            <a href="contentEditor.jsp">Editor</a>
         </div>
         <div>
-            <a id="headerCreateGame" href="about.jsp">About</a>
+            <a id="headerCreateGame" href="index.jsp">Bo</a>
         </div>
         <div>
             <a href="profile.jsp">Profile</a>
@@ -27,8 +27,7 @@
         getCurrentUser(function (jsonStr) {
             var obj = JSON.parse(jsonStr);
             if (obj.jsontype == "user") {
-                $('#headerHomePlay').html('<a href="gameboard.jsp">Play</a>');
-                $('#headerCreateGame').html('<a href="gameCreation.jsp">Create Game</a>');
+                $('#headerHomeContentManager').html('<a href="contentEditor.jsp">Content</a>');
                 $('#headerLoginHTML').html('<a onclick="headerLogout();" href="#">Logout (' + obj.username + ')</a>');
                 try {
                     curUserCountry = obj.country;
@@ -47,3 +46,5 @@
         });
     }
 </script>
+
+<br><br><br>

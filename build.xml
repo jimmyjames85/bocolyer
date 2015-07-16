@@ -1,11 +1,16 @@
 <project name="BoColyer">
 
+
     <property name="context" value="local"/>
+
     <property name="context.files.dir" value="./contextFiles"/>
     <property name="web.content.dir" value="WebContent"/>
     <property name="web.inf.dir" value = "WebContent/WEB-INF"/>
 
-    <property name="tomcat.base.dir" value="C:\apache-tomcat-7.0.63"/>
+    <!--loadproperties srcfile="${context.files.dir}/${context}/context.properties"/-->
+    <property name="tomcat.base.dir" value="/home/jim/apache-tomcat-7.0.62"/>
+
+    <!--property name="tomcat.base.dir" value="C:\apache-tomcat-7.0.63"/-->
     <!--property name="tomcat.home" value="${env.CATALINA_HOME}"/>
     <property name="hudson.build.number" value="${env.BUILD_NUMBER}"/-->
 

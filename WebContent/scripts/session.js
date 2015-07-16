@@ -9,8 +9,6 @@ var USERS_SERVLET = "/usersServlet";
 var GAME_SERVLET = "/DiplomaCY/game";
 var GAME_MANAGER = "/DiplomaCY/RunManager";
 var MOVES_SERVLET = "/DiplomaCY/moves";
-var GAME_CREATION_SERVLET = "/DiplomaCY/gameCreation";
-var DIPLOMACY_BASE = "/DiplomaCY/pages/home.jsp";
 
 var ACTION_GET_VIA_SESSIONID = "GETS";
 var ACTION_KEY = "action";
