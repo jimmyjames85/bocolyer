@@ -35,17 +35,18 @@
     </target>
 
     <target name="deployContextFiles">
-        <copy todir="${web.inf.dir}">
+        <copy todir="${web.inf.dir}" overwrite="true">
             <fileset dir="${context.files.dir}/${context}" includes="**/*"/>
         </copy>
     </target>
 
     <target name="compileWar" depends="compile, deployContextFiles">
+        <delete file="${deploy.dir}/${ant.project.name}.war"/>
         <jar destfile="${deploy.dir}/${ant.project.name}.war" basedir="WebContent"/>
     </target>
 
     <target name="deployHotSwappable" depends="compile, deployContextFiles">
-        <copy todir="${deploy.dir}">
+        <copy todir="${deploy.dir}" overwrite="true">
             <fileset dir="${web.content.dir}" includes="**/*"/>
         </copy>
     </target>

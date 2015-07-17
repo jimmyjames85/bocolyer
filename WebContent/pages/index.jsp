@@ -3,32 +3,11 @@
 <%@ page import="bo.ContentManager" %>
 <html>
 <link rel="stylesheet" type="text/css" href="../css/bo.css" />
+
+
 <%
 	Logger.pageVisit(request,"index.jsp");
 %>
-
-<!-- 
-
-
-
-
-
-
-
-http://www.ffclife.com/
-
-
-
-
-
-
-
-
- -->
-
-
-
-
 
 <head>
 <style>
@@ -69,8 +48,8 @@ http://www.ffclife.com/
 	<div class="topDiv">
 
 		<div>
-			<img width="180" height="240" src="../imgs/Bo_360x480.jpg"
-				class="textWrapLeft">
+			<a href="about.jsp"><img width="180" height="240" src="../imgs/Bo_360x480.jpg"
+				class="textWrapLeft"></a>
 			<h1>Bo Daniel Colyer - Fund Run</h1>
 
 			<p>
@@ -119,13 +98,13 @@ http://www.ffclife.com/
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">Map</td>
+				<td>Map</td>
 				<td>
 					<div id="map-canvas"></div>
 				</td>
-				<!--td>
-  					<canvas id="canvas" width="200" height="400"></canvas>
-				</td-->
+				<td>
+  					<a href="about.jsp"><canvas id="canvas" width="200" height="400"></canvas></a>
+				</td>
 			</tr>
 		</table>
 
@@ -133,6 +112,10 @@ http://www.ffclife.com/
 
 	</div>
 </body>
+<script>
+	var amtRaised = <%=ContentManager.retrieveContent("funds.raised")%>;
+	var totalGoal = <%=ContentManager.retrieveContent("funds.target")%>;
+</script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.8/processing.min.js"></script>
 <script src="../scripts/thermometer.js"></script>
 </html>

@@ -76,6 +76,8 @@ class ContentManager
 
 	}
 
+
+
 	public static String getLogAsHTMLTable()
 	{
 		File logFile = LOG.getLogFile()

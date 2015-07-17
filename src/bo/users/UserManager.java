@@ -34,7 +34,7 @@ public class UserManager
 		q[0] += USERS_EMAIL + ") ";
 
 		q[0] += "VALUES ( ?,?,?,?,?)";
-		q[1] = user.getUsername();
+		q[1] = user.getUsername().toLowerCase();
 		q[2] = user.getPassword();
 		q[3] = user.getFirstName();
 		q[4] = user.getLastName();
@@ -84,6 +84,8 @@ public class UserManager
 	 */
 	public static void changeUserPassword(String username, String currentPassword, String newPassword) throws UserNotFoundException, InvalidPasswordException, InvalidUserException
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		getUser(username);
 		DBAccessor.sendQuery(buildChangePasswordQuery(username, currentPassword, newPassword));
 	}
@@ -108,7 +110,7 @@ public class UserManager
 		q[1] = curUser.getFirstName();
 		q[2] = curUser.getLastName();
 		q[3] = curUser.getEmail();
-		q[4] = curUser.getUsername();
+		q[4] = curUser.getUsername().toLowerCase();
 		return q;
 	}
 
@@ -134,7 +136,8 @@ public class UserManager
 
 	protected static String[] buildGetUserQuery(String username)
 	{
-
+		if(username!=null)
+			username = username.toLowerCase();
 		String[] q = new String[2];
 		q[0] = "SELECT * FROM " + USERS_TABLE + " WHERE ";
 		q[0] += USERS_USERNAME + "=?";
@@ -155,6 +158,10 @@ public class UserManager
 	 */
 	public static User getUser(String username, String password) throws UserNotFoundException, InvalidPasswordException, InvalidUserException
 	{
+
+		if(username!=null)
+			username = username.toLowerCase();
+
 		User user = getUser(username);
 		if (!user.getPassword().equals(password))
 			throw new InvalidPasswordException("Incorrect password");
@@ -164,6 +171,8 @@ public class UserManager
 
 	protected static String[] buildGetFriendListQuery(String username)
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		String q[] = new String[2];
 
 		q[0] = "SELECT * FROM " + USERS_TABLE + " WHERE ";
@@ -213,11 +222,15 @@ public class UserManager
 
 	private static void updateFriendList(String username, String friendListString)
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		DBAccessor.sendQuery(buildUpdateFriendListQuery(username, friendListString));
 	}
 
 	protected static String[] buildUpdateFriendListQuery(String username, String friendList)
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		String q[] = new String[3];
 		q[0] = "UPDATE " + USERS_TABLE + " SET friends=? WHERE ";
 		q[0] += USERS_USERNAME + "=?";
@@ -228,6 +241,8 @@ public class UserManager
 
 	public static List<String> getFriendList(String username)
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		ArrayList<String> ret = new ArrayList<String>();
 		List<Map<String, Object>> results = DBAccessor.sendQuery(buildGetFriendListQuery(username));
 
@@ -305,6 +320,8 @@ public class UserManager
 
 	private static User getUser(String username) throws UserNotFoundException, InvalidUserException
 	{
+		if(username!=null)
+			username = username.toLowerCase();
 		User user = new User(username);
 		user.validateUsername();
 

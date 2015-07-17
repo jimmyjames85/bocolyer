@@ -48,6 +48,17 @@ public class Logger
 
 	public static void pageVisit(HttpServletRequest request, String msg)
 	{
+		String remoteAddr = request.getRemoteAddr();
+		if(remoteAddr!=null)
+			remoteAddr = remoteAddr.trim();
+
+		if("192.168.0.2".equals(remoteAddr))
+			return;
+
+		if("127.0.0.1".equals(remoteAddr))
+			return;
+
+
 		String out = "\n========================================================";
 		out += "\n Accessed on: " + getDateNow();
 		out += "\n" + msg;
