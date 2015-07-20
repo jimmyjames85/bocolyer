@@ -7,24 +7,28 @@ import org.apache.commons.io.IOUtils
  */
 class FileHelper
 {
-    private static Logger LOG = new Logger(DBAccessor.class);
+    public static final String FS = System.getProperty("file.separator");
 
-    public static int getCount()
-    {
-        return 34;
-    }
-
-    public static Properties getDatabaseProperties(String fileLoc)
+    //File should be in WEB-INF folder
+    public static Properties loadPropertiesFile(String fileLoc)
     {
         Properties p = new Properties()
         InputStream is = null;
         try
         {
-            p.load(FileHelper.class.getClassLoader().getResourceAsStream(fileLoc));
+            String thisDir = "";
+            URI uri = FileHelper.class.getClassLoader().getResource(thisDir).toURI();
+            File propFile = new File(uri);
+            propFile = propFile.getParentFile();
+            propFile = new File(propFile,fileLoc);
+
+            is = propFile.newInputStream()
+            if(is!=null)
+                p.load(is);
         }
         catch (Exception e)
         {
-            LOG.debug(e);
+            e.printStackTrace()
         }
         finally
         {

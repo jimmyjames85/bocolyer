@@ -12,7 +12,7 @@ public class DBAccessor
 {
 
 	public static final String FS = System.getProperty("file.separator");
-	private static final String PROPERTY_FILE_LOC = ".." + FS + "database.properties"; //This should be in the WEB-INF folder
+	private static final String PROPERTY_FILE_LOC = "database.properties"; //This should be in the WEB-INF folder
 	private static final String PROPERTY_SERVER = "server";
 	private static final String PROPERTY_DATABASE = "database";
 	private static final String PROPERTY_USERNAME = "username";
@@ -70,7 +70,7 @@ public class DBAccessor
 	public static List<Map<String, Object>> sendQuery(String... query)
 	{
 
-		Properties props = FileHelper.getDatabaseProperties(PROPERTY_FILE_LOC);
+		Properties props = FileHelper.loadPropertiesFile(PROPERTY_FILE_LOC);
 
 		String server = props.getProperty(PROPERTY_SERVER);
 		String database = props.getProperty(PROPERTY_DATABASE);

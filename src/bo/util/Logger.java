@@ -2,6 +2,7 @@ package bo.util;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +22,7 @@ public class Logger
 	private static boolean info = true;
 
 	public static final String FS = System.getProperty("file.separator");
-	private static final String PROPERTY_FILE_LOC = ".." + FS + "context.properties"; //This should be in the WEB-INF folder
+	private static final String PROPERTY_FILE_LOC = "context.properties"; //This should be in the WEB-INF folder
 	private static final String PROPERTY_LOG_LOCATION = "log.file.location";
 
 
@@ -72,10 +73,19 @@ public class Logger
 	@SuppressWarnings("rawtypes")
 	public Logger(Class clazz)
 	{
-
 		this.loggingClass = clazz;
-		Properties props = FileHelper.getDatabaseProperties(PROPERTY_FILE_LOC);
-		logFile = new File(props.getProperty(PROPERTY_LOG_LOCATION));
+
+
+        try
+        {
+
+            Properties props = FileHelper.loadPropertiesFile(PROPERTY_FILE_LOC);
+            logFile = new File(props.getProperty(PROPERTY_LOG_LOCATION));
+        }
+        catch(Exception e)
+        {
+        }
+
 	}
 
 	private void log(Object x, String method)
@@ -89,7 +99,7 @@ public class Logger
 		FileWriter fw = null;
 		try
 		{
-			if(!logFile.exists())
+			if(logFile==null || !logFile.exists())
 				logFile.createNewFile();
 
 			fw = new FileWriter(logFile, true);

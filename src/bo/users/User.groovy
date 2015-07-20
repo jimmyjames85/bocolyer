@@ -2,6 +2,7 @@ package bo.users
 
 import bo.users.session.SessionId
 import com.google.gson.stream.JsonWriter
+import org.apache.commons.lang3.StringUtils
 
 /**
  * Created by jtappe on 7/20/2015.
@@ -40,7 +41,7 @@ class User implements Comparable<User>
     def String email;
     def String username;
     def String permissions;
-    private SessionId sid;
+    def SessionId sessionId;
 
     public User()
     {
@@ -48,7 +49,8 @@ class User implements Comparable<User>
 
     public User(String username)
     {
-        setUsername(username);
+        if(!StringUtils.isEmpty(username))
+            setUsername(username);
     }
 
     @Override
@@ -56,15 +58,6 @@ class User implements Comparable<User>
     {
         return username;
     }
-
-    /*
-     * public String toHtmlTableStringWithPassword() { String ret =
-     * "<table border=1>"; ret +=
-     * "<tr><td>username</td><td>password</td><td>firstName</td><td>lastName</td><td>email</td></tr>"
-     * ; ret += "<tr><td>" + username + "</td><td>" + password + "</td><td>" +
-     * firstName + "</td><td>" + lastName + "</td><td>" + email + "</td></tr>";
-     * ret += "</table>"; return ret; }
-     */
 
     /**
      * This method is userful for sending the user information to the web client
@@ -81,24 +74,14 @@ class User implements Comparable<User>
         {
             json.beginObject();
             json.name("username").value(username);
-            //json.name("password").value(password);
             json.name("firstName").value(firstName);
             json.name("lastName").value(lastName);
             json.name("email").value(email);
-            if (sid != null)
+            if (sessionId != null)
             {
-                json.name("sessionId").value(sid.toString());
+                json.name("sessionId").value(sessionId.toString());
             }
 
-            /*List<String> friends = UserManager.getFriendList(username);
-            if (friends.size() > 0)
-            {
-                json.name("friends");
-                json.beginArray();
-                for (String friend : friends)
-                    json.value(friend);
-                json.endArray();
-            }*/
             json.name("jsontype").value("user");
 
             json.endObject();
@@ -197,14 +180,5 @@ class User implements Comparable<User>
         return ret;
     }
 
-    public String getPermissions()
-    {
-        return permissions;
-    }
-
-    public void setPermissions(String permissions)
-    {
-        this.permissions = permissions;
-    }
 
 }
