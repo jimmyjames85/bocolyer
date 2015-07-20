@@ -171,7 +171,7 @@ public class UserManager
 		q[1] = username;
 		return q;
 	}
-
+/*
 	public static boolean addFriend(String username, String friendUsername)
 	{
 		if (!UserManager.doesUserExist(friendUsername) || username == null || username.equalsIgnoreCase((friendUsername.toUpperCase())))
@@ -241,7 +241,7 @@ public class UserManager
 		}
 		return ret;
 	}
-
+*/
 	protected static String[] buildGetUserViaSessionIdQuery(SessionId sid)
 	{
 		

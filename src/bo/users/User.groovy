@@ -6,7 +6,7 @@ import com.google.gson.stream.JsonWriter
 /**
  * Created by jtappe on 7/20/2015.
  */
-class User  implements Comparable<User>
+class User implements Comparable<User>
 {
     private static final int MIN_PASSWORD_LENGTH = 3;
     private static final int MIN_USERNAME_LENGTH = 3;
@@ -34,12 +34,12 @@ class User  implements Comparable<User>
      */
     private static final String VALID_CHARS_LASTNAME = VALID_CHARS_FIRSTNAME + " .-";
 
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String username;
-    private String permissions;
+    def String password;
+    def String firstName;
+    def String lastName;
+    def String email;
+    def String username;
+    def String permissions;
     private SessionId sid;
 
     public User()
@@ -49,66 +49,6 @@ class User  implements Comparable<User>
     public User(String username)
     {
         setUsername(username);
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public SessionId getSessionId()
-    {
-        return sid;
-    }
-
-    public void setSessionId(SessionId sid)
-    {
-        this.sid = sid;
     }
 
     @Override
@@ -141,7 +81,7 @@ class User  implements Comparable<User>
         {
             json.beginObject();
             json.name("username").value(username);
-            json.name("password").value(password);
+            //json.name("password").value(password);
             json.name("firstName").value(firstName);
             json.name("lastName").value(lastName);
             json.name("email").value(email);
@@ -150,7 +90,7 @@ class User  implements Comparable<User>
                 json.name("sessionId").value(sid.toString());
             }
 
-            List<String> friends = UserManager.getFriendList(username);
+            /*List<String> friends = UserManager.getFriendList(username);
             if (friends.size() > 0)
             {
                 json.name("friends");
@@ -158,7 +98,7 @@ class User  implements Comparable<User>
                 for (String friend : friends)
                     json.value(friend);
                 json.endArray();
-            }
+            }*/
             json.name("jsontype").value("user");
 
             json.endObject();
