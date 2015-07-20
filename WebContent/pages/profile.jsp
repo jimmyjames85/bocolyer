@@ -12,36 +12,48 @@
     <%@ include file="header.jsp" %>
 </div>
 <div class="topDiv">
-    Username:
-    <input type="text" id="tbUsername" disabled="disabled"
-           style="background: transparent;">
-    <br> First Name:
-    <input type="text" id="tbFirstName">
-    <br> Last Name:
-    <input type="text" id="tbLastName">
-    <br> Email:
-    <input type="text" id="tbEmail">
-    <br>
-    <input type="button" value="Update Info" id="btnChange"
-           onclick="updateInfo()" disabled="disabled">
-    <br>
-    <input type="button" value="Logout" id="btnLogout" onclick="logout()"
-           disabled="disabled">
-    <br>
 
-    <div id="friendList"></div>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" id="tbUsername" disabled="disabled" style="background: transparent;"></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" id="tbFirstName"></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" id="tbLastName"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" id="tbEmail"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" value="Update Info" id="btnChange" onclick="updateInfo()" disabled="disabled"></td>
+        </tr>
+    </table>
+
+
+    <!-- <%--   <div id="friendList"></div>
     <button id="btnAddFriend" type=button onclick="addFriend()" disabled="disabled">Add Friend</button>
     <button id="btnDropFriend" type=button onclick="dropFriend()" disabled="disabled">Drop Friend</button>
     <div id="message"></div>
+     --%> -->
+
 </div>
 </body>
 
 <script>
     var currentUser;
 
-    function populateUser(jsonString) {
+    function populateUser(jsonString)
+    {
         var json = JSON.parse(jsonString);
-        if (json.jsontype == "user") {
+        if (json.jsontype == "user")
+        {
             currentUser = json;
             $('#btnChange').attr("disabled", false);
             $('#btnLogout').attr("disabled", false);
@@ -52,7 +64,7 @@
             $('#tbLastName').val(json.lastName);
             $('#tbEmail').val(json.email);
             var friends = json.friends;
-            var out = "FriendsList:<br><br>";
+            var out     = "FriendsList:<br><br>";
             for (var i = 0; i < friends.length; i++)
                 out += friends[i] + "<br>"
 
@@ -60,44 +72,57 @@
         }
     }
 
-    function addFriend() {
+    function addFriend()
+    {
         var friendName = prompt("Enter new friend name:");
 
-        sendAddFriend(friendName, function (json) {
+        sendAddFriend(friendName, function (json)
+        {
             getCurrentUser(populateUser);
         });
     }
 
-    function dropFriend() {
+    function dropFriend()
+    {
         var friendName = prompt("Enter ex-friend name:");
 
-        sendDropFriend(friendName, function (json) {
+        sendDropFriend(friendName, function (json)
+        {
             getCurrentUser(populateUser);
         });
     }
 
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
         $('#tbFirstName').focus();
         getCurrentUser(populateUser);
     });
 
-    function updateInfo() {
-        if (currentUser != "undefined") {
+    function updateInfo()
+    {
+        if (currentUser != "undefined")
+        {
             currentUser.firstName = $('#tbFirstName').val();
-            currentUser.lastName = $('#tbLastName').val();
-            currentUser.email = $('#tbEmail').val();
+            currentUser.lastName  = $('#tbLastName').val();
+            currentUser.email     = $('#tbEmail').val();
 
-            updateUserInfo(currentUser, function (response) {
+            updateUserInfo(currentUser, function (response)
+            {
                 var json = JSON.parse(response);
-                if (json.jsontype == "user") {
+                if (json.jsontype == "user")
+                {
                     alert("Succes!!");
-                } else {
+                }
+                else
+                {
                     var msg = json.message;
-                    if (json.stacktrace != "undefined") {
+                    if (json.stacktrace != "undefined")
+                    {
                         msg += "<br>Stack trace<pre>" + json.stacktrace + "</pre><br>";
                     }
 
-                    if (json.jsontype == "error") {
+                    if (json.jsontype == "error")
+                    {
                         $('#message').html(msg);
                         alert(json.message);
                     }

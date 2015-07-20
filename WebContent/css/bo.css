@@ -38,13 +38,33 @@ div.topDiv
     font-family: Arial, Helvetica, sans-serif;
 }
 
+a.h1
+{
+    /* #00878F */
+    /*margin-top: 75px;*/
+    font-size: 20pt;
+    color: #E47128;
+    font-family: "Tmes New Roman", Times, serif;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a.h2
+{
+    /* #00878F */
+    /*margin-top: 75px;*/
+    font-size: 15pt;
+    color: #E47128;
+    font-family: "Tmes New Roman", Times, serif;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 h1, h2
 {
 	/* #00878F */
     /*margin-top: 75px;*/
     color: #E47128;
     font-family: "Tmes New Roman", Times, serif;
-    font-family: Arial, Helvetica, sans-serif;    
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 

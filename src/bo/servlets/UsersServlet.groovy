@@ -1,26 +1,18 @@
-package bo.servlets;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+package bo.servlets
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
 import bo.users.session.*;
 import bo.users.*;
 
-public class UsersServlet extends HttpServlet
+/**
+ * Created by jim on 7/16/15.*/
+class UsersServlet extends HttpServlet
 {
 	public static final String ACTION_ADD = "ADD";
 	public static final String ACTION_GET = "GET";
@@ -32,7 +24,7 @@ public class UsersServlet extends HttpServlet
 	public static final String ACTION_USER_EXIST = "PINGUSER";
 	//public static final String ACTION_ADD_FRIEND = "ADDFRIEND";
 	//public static final String ACTION_DROP_FRIEND = "DROPFRIEND";
-	
+
 	public static final String ACTION = "action";
 	public static final String FIRST_NAME = "firstName";
 	public static final String LAST_NAME = "lastName";
@@ -65,7 +57,7 @@ public class UsersServlet extends HttpServlet
 			String curVal = parmMap.get(curParm)[0];
 
 			if (curParm.equals(USERNAME))
-				incomingUser.setUsername(curVal);
+				incomingUser.setUsername(curVal?.toLowerCase());
 			else if (curParm.equals(PASSWORD))
 				incomingUser.setPassword(curVal);
 			else if (curParm.equals(EMAIL))
@@ -139,7 +131,7 @@ public class UsersServlet extends HttpServlet
 			{
 				String sid = request.getHeader("sessionId");
 				String newFriend = request.getHeader("newFriend");
-				
+
 				if (sid != null)
 					incomingUser = UserManager.getUser(new SessionId(sid));
 
@@ -154,7 +146,7 @@ public class UsersServlet extends HttpServlet
 			{
 				String sid = request.getHeader("sessionId");
 				String exFriend = request.getHeader("exFriend");
-				
+
 				if (sid != null)
 					incomingUser = UserManager.getUser(new SessionId(sid));
 
@@ -164,7 +156,7 @@ public class UsersServlet extends HttpServlet
 
 				jOut = "{\"success\":" + success + "}";
 
-			}*/		
+			}*/
 			else
 			{
 				String err = "Unsupported action query : " + action;
@@ -193,6 +185,7 @@ public class UsersServlet extends HttpServlet
 
 			jOut = out.toString();
 		}
+
 		os.print(jOut);
 	}
 
