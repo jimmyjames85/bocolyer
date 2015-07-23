@@ -88,8 +88,6 @@ public class ModifyContentServlet extends HttpServlet
 				fundsRaised = curVal;
 			else if (curParm.equals(FUNDS_TARGET))
 				fundsTarget = curVal;
-
-			System.out.println(curParm + " :" + curVal);
 		}
 
 		String jOut = null;

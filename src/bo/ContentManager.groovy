@@ -64,7 +64,6 @@ class ContentManager
 		//def permissions = UserManager.getUser(new SessionId(cookieMap?.s?.toString()))?.getPermissions()?.split(";")?.toList()
 		try
 		{
-			println sessionId
 			def permissions = UserManager.getUser(new SessionId(sessionId))?.getPermissions()?.split(";")?.toList()
 			return permissions?.contains(CONTENT_MANAGER)
 		}
@@ -75,8 +74,6 @@ class ContentManager
 		return false;
 
 	}
-
-
 
 	public static String getLogAsHTMLTable()
 	{
@@ -126,11 +123,5 @@ class ContentManager
 			ret = results.get(0).get(CONTENT_VALUE).toString();
 		return ret;
 	}
-
-	public static void main(String[] args)
-	{
-		println "hi"
-	}
-
 }
 

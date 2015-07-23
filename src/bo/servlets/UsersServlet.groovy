@@ -124,8 +124,9 @@ class UsersServlet extends HttpServlet
 				json.beginObject();
 				json.name("jsontype").value("userExists");
 				json.name("exists").value(userExists);
-				json.close();
-				jOut = out.toString();
+                json.endObject();
+                json.close();
+                jOut = out.toString();
 			}
 			/*else if (request.getHeader("action").equals(ACTION_ADD_FRIEND))
 			{
@@ -186,6 +187,7 @@ class UsersServlet extends HttpServlet
 			jOut = out.toString();
 		}
 
+        println "UserServlet: $jOut"
 		os.print(jOut);
 	}
 

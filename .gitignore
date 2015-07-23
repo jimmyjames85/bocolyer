@@ -8,3 +8,4 @@ WebContent/WEB-INF/database.properties
 web
 WebContent/WEB-INF/context.properties
 .idea
+WebContent/WEB-INF/ant.properties

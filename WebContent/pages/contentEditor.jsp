@@ -20,9 +20,11 @@
 
             <div id="controls">
                 <form action="../modifyContent" method="POST">
-                    Funds Raised: <input type="text" name="fundsRaised" value="<%=ContentManager.retrieveContent("funds.raised")%>">
+                    Funds Raised: <input type="text" name="fundsRaised"
+                                         value="<%=ContentManager.retrieveContent("funds.raised")%>">
                     <br>
-                    Funds Target: <input type="text" name="fundsTarget" value="<%=ContentManager.retrieveContent("funds.target")%>">
+                    Funds Target: <input type="text" name="fundsTarget"
+                                         value="<%=ContentManager.retrieveContent("funds.target")%>">
                     <br>
                     <input type="submit">
                 </form>
@@ -40,10 +42,112 @@
             <div>
                 You are not a content manager.
             </div>
+
         </c:otherwise>
     </c:choose>
 
+    <div id="progress">
 
+    </div>
+    <div id="progress2">
+
+    </div>
+    <div >
+        <button id="stopBtn" onclick="sendStop();">Toggle</button>
+    </div>
+    <div id="stopProgress">
+
+    </div>
 </div>
+
+<div id="thefooter">
+test test o test
+</div>
+
+
+<script>
+
+    var stop = true;
+    var TIMER_SERVLET_URL =  getBaseURL() + "/timer";
+
+    function sendStop()
+    {
+        var headers = new Object();
+        headers.stop = stop;
+        if(!stop)
+        myVar = setInterval(updateProgressBar,3000);
+
+        sendAjaxQueryWithHeaders("POST",TIMER_SERVLET_URL,"",headers,function(request)
+        {
+            setInnerHtml("stopProgress",request);
+        });
+    }
+    var count = 0;
+    var myVar;
+
+    myVar = setInterval(updateProgressBar, 3000);
+
+    function updateProgressBar()
+    {
+
+        var headers = new Object();
+        headers.one = "one oh one";
+        headers.two = "two yeah two";
+        headers.three = "three = one plus two (last one)"
+        var msg = getBaseURL();
+
+        count++;
+        msg += "method call count: " + count;
+
+        setInnerHtml("progress", msg);
+
+
+        var noCacheIEHack = "?nc" + (new Date().getTime()) + "=1";
+        sendAjaxQueryWithHeaders("GET",TIMER_SERVLET_URL + noCacheIEHack, "", headers, function (response)
+        {
+            if(response=="COMPLETE")
+            {
+                setInnerHtml("progress2", "It has been stopped and now we are stopping timmer #" + myVar);
+                stop = false;
+                document.getElementById('stopBtn').innerHTML = 'Start'
+                clearInterval(myVar);
+            }
+            else
+            {
+                stop = true;
+                document.getElementById('stopBtn').innerHTML = 'Stop'
+                setInnerHtml("progress2",response);
+            }
+
+        });
+
+    }
+
+
+    function toggleFooter()
+    {
+        var footer = document.getElementById('thefooter');
+        if(footer)
+        {
+            if(footer.currentStyle)
+                console.log("IE:currentDisplay = " + footer.currentStyle.display);
+            else if(window.getComputedStyle)
+                console.log("FF:currentDisplay = " +document.defaultView.getComputedStyle(footer,null).getPropertyValue('display'));
+
+            var display = footer.style.display;
+            if (footer.style.display === 'none')
+                footer.style.display = 'block';
+            else
+                footer.style.display = 'none';
+
+            console.log("display was '" + display + "' ==now=it=is==> '" + footer.style.display + "'");
+        }
+        else
+        {
+            console.log('no footer!!???!?!');
+        }
+
+    }
+</script>
 </body>
 </html>

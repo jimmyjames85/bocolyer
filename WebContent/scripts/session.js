@@ -20,7 +20,7 @@ function doesUserExist(username, callback)
 	request.username = username;
 	request.action = "PINGUSER";
 	var urlencodedRequest = createUrlEncodedRequest(request);
-	sendAjaxQuery("POST", USERS_SERVLET, urlencodedRequest, callback)
+	sendAjaxQuery("POST", getBaseURL() +  USERS_SERVLET, urlencodedRequest, callback)
 }
 
 function getCookie(cname)
@@ -201,8 +201,8 @@ function getBaseURL()
 function sendAjaxQuery(method, url, urlencodedRequest, callback)
 {
 	console.debug("old method");
-	var empty = new Object();
-	sendAjaxQueryWithHeaders(method, url, urlencodedRequest, empty, callback);
+	var emptyHeaders = new Object();
+	sendAjaxQueryWithHeaders(method, url, urlencodedRequest, emptyHeaders, callback);
 }
 
 function sendAjaxQueryWithHeaders(method, url, urlencodedRequest, headers, callback)

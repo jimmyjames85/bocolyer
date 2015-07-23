@@ -124,7 +124,7 @@
                     if (json.jsontype == "error")
                     {
                         $('#message').html(msg);
-                        alert(json.message);
+                        alert("Error: " + json.message);
                     }
                 }
 

@@ -276,7 +276,6 @@ public class UserManager
      */
     public static User getUser(SessionId sid) throws UserNotFoundException, InvalidUserException
     {
-        println "SID = $sid"
         if (sid == null)
             throw new InvalidUserException("Please login.");
 
@@ -354,16 +353,6 @@ public class UserManager
         if (data != null)
             user.setPermissions(data.toString());
 
-
         return user;
     }
-
-    public static void main(String[] args)
-    {
-
-        User user = UserManager.getUser(new SessionId("761108746752656070589283692200633367281437433168526"))
-        println user.username
-
-    }
-
 }

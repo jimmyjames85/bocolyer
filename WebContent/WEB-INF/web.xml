@@ -28,11 +28,21 @@
 		<servlet-name>contentServlet</servlet-name>
 		<servlet-class>bo.servlets.ModifyContentServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>contentServlet</servlet-name>
 		<url-pattern>/modifyContent</url-pattern>
 	</servlet-mapping>
+
+    <servlet>
+        <servlet-name>timerServlet</servlet-name>
+        <servlet-class>bo.servlets.TimerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>timerServlet</servlet-name>
+        <url-pattern>/timer</url-pattern>
+    </servlet-mapping>
 
 
 

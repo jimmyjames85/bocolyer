@@ -42,7 +42,7 @@
     function headerLogout() {
         //this calls the userLogout in session.js
         userLogout(function (msg) {
-            window.location = getBaseURL();
+            window.location = getBaseURL() + "/pages/login.jsp";
         });
     }
 </script>

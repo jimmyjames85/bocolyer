@@ -40,9 +40,10 @@
 
         $("#controls").html("loading...");
 
-        userLogin(username, password, function (response) {
+        userLogin(username, password, function (response)
+        {
             var json = JSON.parse(response);
-            if (json.jsontype == "user" && json.username == username && json.password == password)
+            if (json.jsontype == "user")
                 startSession(json);
             else if (json.jsontype == "error") {
                 var msg = json.message;
@@ -52,6 +53,10 @@
                 }
 
                 $('#message').html(msg);
+            }
+            else
+            {
+                $('#message').html("Unkown error: " + response);
             }
         });
     }
